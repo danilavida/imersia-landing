@@ -1,23 +1,28 @@
 /*
 Theme Name: Imersia Landing
-Theme URI: https://example.com/imersia-landing/ (Puedes cambiar esto o quitarlo)
-Author: l4mole
-Author URI: https://example.com/ (Puedes cambiar esto o quitarlo)
+Theme URI: https://example.com/imersia-landing/
+Author: Tu Nombre
+Author URI: https://example.com/
 Description: Un tema landing page personalizado para Imersia.
 Version: 1.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: imersia-landing
 Tags: landing-page, custom-theme, one-page
+
+Este es el archivo principal de estilos del tema.
 */
 
+/* ----- Estilos Globales ----- */
 body {
-    background-color: #f0f1fa;
+    background-color: #f0f1fa; /* Color principal de la página que especificaste */
     margin: 0;
     padding: 0;
-    font-family: 'Epilogue Regular', sans-serif;
+    font-family: sans-serif; /* Podemos cambiar esto más adelante */
+    color: #333; /* Color de texto base */
 }
 
+/* ----- Estilos del Header ----- */
 .site-header {
     padding: 20px 0; /* Espaciado arriba y abajo del header */
 }
@@ -25,7 +30,7 @@ body {
 .header-container {
     max-width: 1200px; /* O el ancho que prefieras para tu contenido */
     margin: 0 auto; /* Centra el contenedor */
-    padding: 0 20px; /* Espaciado a los lados dentro del contenedor */
+    padding: 0 25px; /* Espaciado a los lados dentro del contenedor, un poco más */
     display: flex;
     justify-content: space-between; /* Logo a la izquierda, nav a la derecha */
     align-items: center; /* Alinea verticalmente los items */
@@ -34,15 +39,16 @@ body {
 /* Estilos para el Logo/Título del sitio */
 .site-branding .site-title a {
     text-decoration: none;
-    color: #333; /* Color para el título del sitio, ajústalo si es necesario */
-    font-size: 24px; /* Tamaño del título del sitio, ajústalo */
+    color: #333;
+    font-size: 24px;
     font-weight: bold;
 }
 
-.custom-logo {
+.site-branding .custom-logo {
     /* Estilo para el logo si usas una imagen */
     max-height: 50px; /* Ajusta según el tamaño de tu logo */
     width: auto;
+    display: block; /* Asegura que el logo se comporte como bloque */
 }
 
 /* Estilos para la Navegación y Botones */
@@ -52,27 +58,111 @@ body {
 }
 
 .menu-button {
-    padding: 10px 20px;
+    padding: 12px 28px;
+    font-size: 15px;
     border: none;
-    border-radius: 20px; /* Para hacerlos redondeados como en el ejemplo */
+    border-radius: 25px;
     font-weight: bold;
     cursor: pointer;
-    text-transform: uppercase; /* Como en el ejemplo "LET'S TALK" */
-    margin-left: 15px; /* Espacio entre botones */
-    font-size: 14px;
+    text-transform: uppercase;
+    margin-left: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.menu-button .button-text {
+    display: inline-block;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-button .button-icon {
+    display: inline-block;
+    line-height: 1; /* Ayuda a alinear mejor los iconos de texto */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* --- Botón "LET'S TALK" --- */
 .lets-talk-button {
-    background-color: #2b2e3a; /* Color que especificaste */
-    color: #ffffff; /* Texto blanco para contraste */
+    background-color: #2b2e3a;
+    color: #ffffff;
 }
 
+.lets-talk-button .button-text {
+    margin-right: 8px; /* Espacio entre "LET'S TALK" y el punto */
+}
+
+.lets-talk-button .button-icon.dot {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.lets-talk-button .button-icon.arrow {
+    opacity: 0;
+    position: absolute; /* Para que no ocupe espacio y podamos animar su entrada */
+    /* Se centrará por el flex del botón padre, ajustaremos con transform */
+    transform: translateX(10px);
+}
+
+/* Hover "LET'S TALK" */
+.lets-talk-button:hover {
+    background-color: #0016ec;
+}
+
+.lets-talk-button:hover .button-text {
+    transform: translateX(
+        -25px
+    ); /* Mueve el texto más a la izquierda para dar espacio a la flecha */
+    opacity: 0;
+}
+
+.lets-talk-button:hover .button-icon.dot {
+    transform: translateX(-20px);
+    opacity: 0;
+}
+
+.lets-talk-button:hover .button-icon.arrow {
+    opacity: 1;
+    transform: translateX(
+        0px
+    ); /* La flecha se mueve a la posición central del espacio del texto */
+    /* Si el texto se va, la flecha tomará su lugar. Ajustar X si el botón es muy ancho */
+}
+
+/* --- Botón "MENU" --- */
 .menu-toggle {
-    background-color: #e4e6ef; /* Color que especificaste */
-    color: #333333; /* Texto oscuro para contraste */
+    background-color: #e4e6ef;
+    color: #333333;
 }
 
-/* Opcional: Efecto hover simple para los botones */
-.menu-button:hover {
-    opacity: 0.85;
+/* Orden y espaciado para "MENU" */
+.menu-toggle .button-text {
+    order: 1; /* Texto primero */
+    margin-right: 0;
+    margin-left: 8px; /* Espacio entre los puntos y el texto */
+}
+
+.menu-toggle .button-icon.dots {
+    order: 0; /* Puntos primero (visualmente a la izquierda del texto) */
+    letter-spacing: 1px; /* Separa un poco los dos puntos */
+    transition: transform 0.3s ease, color 0.3s ease; /* Añadido color a la transición */
+    color: #333333; /* Color inicial de los puntos */
+}
+
+/* Hover "MENU" */
+.menu-toggle:hover {
+    background-color: #ffffff;
+    color: #2b2e3a; /* Color del texto cambia */
+}
+
+.menu-toggle:hover .button-text {
+    color: #2b2e3a; /* Asegura que el texto cambie de color */
+}
+
+.menu-toggle:hover .button-icon.dots {
+    transform: rotate(90deg);
+    color: #2b2e3a; /* Color de los puntos cambia */
 }

@@ -28,8 +28,15 @@
                     ?>
                 </div>
                 <nav id="site-navigation" class="main-navigation" role="navigation">
-                    <button class="menu-button lets-talk-button">CONTACTO</button>
-                    <button class="menu-button menu-toggle">MENÚ</button>
+                    <button class="menu-button lets-talk-button">
+                        <span class="button-text">LET'S TALK</span>
+                        <span class="button-icon dot">&bull;</span>
+                        <span class="button-icon arrow">&rarr;</span>
+                    </button>
+                    <button class="menu-button menu-toggle">
+                        <span class="button-text">MENU</span>
+                        <span class="button-icon dots">&bull;&bull;</span>
+                    </button>
                 </nav>
             </div>
         </header>
