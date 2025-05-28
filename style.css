@@ -1,7 +1,6 @@
 /*
 Theme Name: Imersia Landing
-Theme URI: https://example.com/imersia-landing/
-Author: Tu Nombre
+Author: l4mole
 Author URI: https://example.com/
 Description: Un tema landing page personalizado para Imersia.
 Version: 1.0
@@ -9,20 +8,16 @@ License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: imersia-landing
 Tags: landing-page, custom-theme, one-page
-
-Este es el archivo principal de estilos del tema.
 */
 
-/* ----- Estilos Globales ----- */
 body {
-    background-color: #f0f1fa; /* Color principal de la página que especificaste */
+    background-color: #f0f1fa;
     margin: 0;
     padding: 0;
-    font-family: sans-serif; /* Podemos cambiar esto más adelante */
-    color: #333; /* Color de texto base */
+    font-family: sans-serif;
+    color: #333;
 }
 
-/* ----- Estilos del Header ----- */
 .site-header {
     padding: 20px 0; /* Espaciado arriba y abajo del header */
 }
