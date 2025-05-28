@@ -1,9 +1,6 @@
 <?php
-/**
- * El archivo de plantilla principal.
- */
 
-get_header(); // Incluye header.php
+get_header();
 ?>
 
 <main id="main" class="site-main" role="main">
@@ -25,5 +22,5 @@ get_header(); // Incluye header.php
 
 </main>
 <?php
-get_footer(); // Incluye footer.php
+get_footer();
 ?>
