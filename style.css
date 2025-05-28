@@ -151,3 +151,9 @@ body {
     position: relative; /* Para asegurar que esté por encima de la onda */
     z-index: 2;
 }
+
+.custom-logo {
+    /* O el selector específico de tu imagen de logo */
+    filter: url(#liquidFilter);
+    /* Puede que necesites ajustar el tamaño o la visualización aquí si el filtro causa problemas de recorte */
+}

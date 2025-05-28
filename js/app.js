@@ -121,7 +121,84 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 menuButton.addEventListener('mouseenter', () => tlMenuEnter.restart())
                 menuButton.addEventListener('mouseleave', () => tlMenuLeave.restart())
             }
+
+            // ... (código existente para los botones) ...
+
+            // --- Animación para el LOGO ---
+            const logo = document.querySelector('.custom-logo') // O el selector de tu logo
+
+            if (logo) {
+                // Seleccionamos los elementos del filtro SVG que queremos animar
+                // Es importante que el filtro SVG ya esté en el DOM para este momento.
+                const feTurbulence = document.querySelector('#liquidFilter feTurbulence')
+                const feDisplacementMap = document.querySelector(
+                    '#liquidFilter feDisplacementMap'
+                )
+
+                if (feTurbulence && feDisplacementMap) {
+                    let hoverAnimation = null // Para controlar la animación de 'seed'
+
+                    logo.addEventListener('mouseenter', () => {
+                        // Animación de la intensidad de la distorsión y la frecuencia base
+                        gsap.to(feDisplacementMap, {
+                            duration: 0.3,
+                            attr: { scale: 19 }, // Aumenta la distorsión
+                            ease: 'power2.out'
+                        })
+                        gsap.to(feTurbulence, {
+                            duration: 0.3,
+                            attr: { baseFrequency: '0.03 0.07' }, // Cambia un poco las ondas
+                            ease: 'power2.out'
+                        })
+
+                        // Iniciar animación continua del 'seed' para que el líquido "se mueva"
+                        // Usamos un objeto para animar el 'seed' porque GSAP anima números, no directamente el atributo si no es numérico.
+                        // Esto es un truco: animamos un objeto y en cada 'update' aplicamos el valor al atributo.
+                        let turbulenceAttrs = {
+                            seed: parseFloat(feTurbulence.getAttribute('seed')) || 0
+                        }
+                        hoverAnimation = gsap.to(turbulenceAttrs, {
+                            seed: turbulenceAttrs.seed + 7, // Incrementa la semilla
+                            duration: 1, // Duración para cambiar 5 unidades de seed
+                            ease: 'none',
+                            repeat: -1,
+                            onUpdate: function () {
+                                feTurbulence.setAttribute(
+                                    'seed',
+                                    Math.floor(this.targets()[0].seed)
+                                )
+                            }
+                        })
+                    })
+
+                    logo.addEventListener('mouseleave', () => {
+                        // Volver a la normalidad
+                        gsap.to(feDisplacementMap, {
+                            duration: 0.9,
+                            attr: { scale: 0 }, // Sin distorsión
+                            ease: 'power2.in'
+                        })
+                        gsap.to(feTurbulence, {
+                            duration: 0.5,
+                            attr: { baseFrequency: '0.04 0.08' }, // Frecuencia original
+                            ease: 'power2.in'
+                        })
+
+                        // Detener animación del 'seed'
+                        if (hoverAnimation) {
+                            hoverAnimation.kill()
+                            // Opcional: resetear el seed a 0 si quieres que siempre empiece igual
+                            // feTurbulence.setAttribute('seed', '0');
+                        }
+                    })
+                } else {
+                    console.error(
+                        'No se pudieron encontrar los elementos del filtro SVG (#liquidFilter feTurbulence/feDisplacementMap). Asegúrate de que el SVG del filtro esté en el DOM.'
+                    )
+                }
+            }
         },
+
         false
     )
 })
