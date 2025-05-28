@@ -63,7 +63,7 @@ body {
     justify-content: center;
     position: relative;
     overflow: hidden;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transición general para color de fondo y texto */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .menu-button .button-text {
@@ -78,7 +78,7 @@ body {
 }
 
 .lets-talk-button {
-    background-color: #2b2e3a; /* Estado inicial definido aquí */
+    background-color: #2b2e3a;
     color: #ffffff;
 }
 
@@ -122,5 +122,5 @@ body {
 
 .menu-toggle:hover .button-icon.dots {
     transform: rotate(90deg);
-    color: #2b2e3a; /* Asegura que los puntos también cambien de color si es necesario */
+    color: #2b2e3a;
 }

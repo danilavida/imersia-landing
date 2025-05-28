@@ -6,67 +6,72 @@ document.addEventListener('DOMContentLoaded', function (event) {
         function (e) {
             console.log('Ventana cargada - Todos los recursos listos')
 
-            // --- Animación para el botón "LET'S TALK" ---
             const letsTalkButton = document.querySelector('.lets-talk-button')
             if (letsTalkButton) {
                 const buttonText = letsTalkButton.querySelector('.button-text')
                 const iconDot = letsTalkButton.querySelector('.button-icon.dot')
-                
-                gsap.set(iconDot, { x: 0, opacity: 1, scale: 1, rotation: 0 })
-                gsap.set(buttonText, { x: 0, opacity: 1 })
 
-                const tlLetsTalkEnter = gsap.timeline({ paused: true })
+                gsap.set(iconDot, { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1 })
+                gsap.set(buttonText, { x: 0, y: 0, scale: 1, opacity: 1 })
+
+                const tlLetsTalkEnter = gsap.timeline({
+                    paused: true,
+                    defaults: { duration: 0.3 }
+                })
                 tlLetsTalkEnter
                     .to(
                         letsTalkButton,
-                        { duration: 0.3, backgroundColor: '#0016ec', ease: 'power1.out' },
-                        0
-                    )
-                    .to(
-                        letsTalkButton,
-                        { duration: 0.2, scale: 1.05, ease: 'power1.out' },
+                        { backgroundColor: '#0016ec', scale: 1.05, ease: 'power1.out' },
                         0
                     )
                     .to(
                         iconDot,
                         {
-                            duration: 0.3,
-                            x: 5,
-                            scale: 1.3,
-                            rotation: 360,
+                            y: -8,
+                            scale: 1.5,
+                            rotation: -360,
+                            transformOrigin: 'center center',
                             ease: 'power2.out'
                         },
                         0
-                    ) // El punto salta y gira
-                    .to(buttonText, { duration: 0.3, x: 10, ease: 'power1.out' }, 0) // El texto se mueve un poco
+                    )
+                    .to(
+                        buttonText,
+                        {
+                            y: -2,
+                            scale: 1.03,
+                            ease: 'power1.out'
+                        },
+                        0
+                    )
 
-                const tlLetsTalkLeave = gsap.timeline({ paused: true })
+                const tlLetsTalkLeave = gsap.timeline({
+                    paused: true,
+                    defaults: { duration: 0.3 }
+                })
                 tlLetsTalkLeave
                     .to(
                         letsTalkButton,
-                        {
-                            duration: 0.3,
-                            backgroundColor: '#2b2e3a',
-                            scale: 1.0,
-                            ease: 'power1.in'
-                        },
+                        { backgroundColor: '#2b2e3a', scale: 1.0, ease: 'power1.in' },
                         0
                     )
                     .to(
                         iconDot,
                         {
-                            duration: 0.3,
-                            x: 0,
+                            y: 0,
                             scale: 1,
                             rotation: 0,
-                            opacity: 1,
                             ease: 'power2.in'
                         },
                         0
                     )
                     .to(
                         buttonText,
-                        { duration: 0.3, x: 0, opacity: 1, ease: 'power1.in' },
+                        {
+                            y: 0,
+                            scale: 1,
+                            ease: 'power1.in'
+                        },
                         0
                     )
 
@@ -84,7 +89,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 const menuText = menuButton.querySelector('.button-text')
                 const menuIconDots = menuButton.querySelector('.button-icon.dots')
 
-                // Estado inicial
                 gsap.set(menuIconDots, { rotation: 0, scale: 1 })
                 gsap.set(menuText, { x: 0 })
 
@@ -101,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
                         0
                     )
                     .to(menuButton, { duration: 0.2, scale: 1.05, ease: 'power1.out' }, 0)
-                    // Animación para los puntos: un pequeño "baile" y luego rotación
+
                     .to(
                         menuIconDots,
                         {
@@ -112,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
                             ease: 'power2.out'
                         },
                         0
-                    ) // Se aplastan y vuelven
+                    )
                     .to(
                         menuIconDots,
                         {
@@ -123,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
                             delay: 0.1
                         },
                         0
-                    ) // Rotan con rebote
+                    )
                     .to(menuText, { duration: 0.3, x: -5, ease: 'power1.out' }, 0)
 
                 const tlMenuLeave = gsap.timeline({ paused: true })

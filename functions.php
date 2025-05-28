@@ -1,7 +1,5 @@
 <?php
-/**
- * Funciones y definiciones del tema Imersia Landing.
- */
+
 
 if (!function_exists('imersia_landing_setup')):
 
