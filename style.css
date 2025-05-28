@@ -17,3 +17,62 @@ body {
     padding: 0;
     font-family: 'Epilogue Regular', sans-serif;
 }
+
+.site-header {
+    padding: 20px 0; /* Espaciado arriba y abajo del header */
+}
+
+.header-container {
+    max-width: 1200px; /* O el ancho que prefieras para tu contenido */
+    margin: 0 auto; /* Centra el contenedor */
+    padding: 0 20px; /* Espaciado a los lados dentro del contenedor */
+    display: flex;
+    justify-content: space-between; /* Logo a la izquierda, nav a la derecha */
+    align-items: center; /* Alinea verticalmente los items */
+}
+
+/* Estilos para el Logo/Título del sitio */
+.site-branding .site-title a {
+    text-decoration: none;
+    color: #333; /* Color para el título del sitio, ajústalo si es necesario */
+    font-size: 24px; /* Tamaño del título del sitio, ajústalo */
+    font-weight: bold;
+}
+
+.custom-logo {
+    /* Estilo para el logo si usas una imagen */
+    max-height: 50px; /* Ajusta según el tamaño de tu logo */
+    width: auto;
+}
+
+/* Estilos para la Navegación y Botones */
+.main-navigation {
+    display: flex;
+    align-items: center;
+}
+
+.menu-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px; /* Para hacerlos redondeados como en el ejemplo */
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase; /* Como en el ejemplo "LET'S TALK" */
+    margin-left: 15px; /* Espacio entre botones */
+    font-size: 14px;
+}
+
+.lets-talk-button {
+    background-color: #2b2e3a; /* Color que especificaste */
+    color: #ffffff; /* Texto blanco para contraste */
+}
+
+.menu-toggle {
+    background-color: #e4e6ef; /* Color que especificaste */
+    color: #333333; /* Texto oscuro para contraste */
+}
+
+/* Opcional: Efecto hover simple para los botones */
+.menu-button:hover {
+    opacity: 0.85;
+}
