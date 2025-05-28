@@ -1,0 +1,19 @@
+/*
+Theme Name: Imersia Landing
+Theme URI: https://example.com/imersia-landing/ (Puedes cambiar esto o quitarlo)
+Author: l4mole
+Author URI: https://example.com/ (Puedes cambiar esto o quitarlo)
+Description: Un tema landing page personalizado para Imersia.
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: imersia-landing
+Tags: landing-page, custom-theme, one-page
+*/
+
+body {
+    background-color: #f0f1fa;
+    margin: 0;
+    padding: 0;
+    font-family: 'Epilogue Regular', sans-serif;
+}
