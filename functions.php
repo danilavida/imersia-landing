@@ -47,4 +47,25 @@ function imersia_landing_scripts()
 }
 add_action('wp_enqueue_scripts', 'imersia_landing_scripts');
 
+// Habilitar la subida de archivos SVG
+function imersia_landing_mime_types($mimes)
+{
+    $mimes['svg'] = 'image/svg+xml';
+    return $mimes;
+}
+add_filter('upload_mimes', 'imersia_landing_mime_types');
+
+// Opcional: Mostrar miniaturas de SVG en la biblioteca de medios (puede no ser perfecto para todos los SVGs)
+function imersia_landing_fix_svg_thumb_display()
+{
+    echo '<style>
+    td.media-icon img[src$=".svg"], 
+    img[src$=".svg"].attachment-post-thumbnail {
+      width: 100% !important;
+      height: auto !important;
+    }
+  </style>';
+}
+add_action('admin_head', 'imersia_landing_fix_svg_thumb_display');
+
 ?>
