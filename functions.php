@@ -38,6 +38,14 @@ function imersia_landing_scripts()
 {
     wp_enqueue_style('imersia-landing-style', get_stylesheet_uri());
 
+
+    wp_enqueue_script('gsap-js', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js', array(), '3.13.0', true);
+
+    wp_enqueue_script('imersia-landing-animations', get_template_directory_uri() . '/js/app.js', array('gsap-js'), '1.0', true);
+
+    // Si en el futuro usas plugins de GSAP como ScrollTrigger, los añadirías aquí también,
+    // por ejemplo:
+    // wp_enqueue_script( 'gsap-st', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js', array('gsap-js'), '3.13.0', true ); 
 }
 add_action('wp_enqueue_scripts', 'imersia_landing_scripts');
 

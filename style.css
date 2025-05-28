@@ -19,19 +19,18 @@ body {
 }
 
 .site-header {
-    padding: 20px 0; /* Espaciado arriba y abajo del header */
+    padding: 20px 0;
 }
 
 .header-container {
-    max-width: 1200px; /* O el ancho que prefieras para tu contenido */
-    margin: 0 auto; /* Centra el contenedor */
-    padding: 0 25px; /* Espaciado a los lados dentro del contenedor, un poco más */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 25px;
     display: flex;
-    justify-content: space-between; /* Logo a la izquierda, nav a la derecha */
-    align-items: center; /* Alinea verticalmente los items */
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* Estilos para el Logo/Título del sitio */
 .site-branding .site-title a {
     text-decoration: none;
     color: #333;
@@ -40,13 +39,11 @@ body {
 }
 
 .site-branding .custom-logo {
-    /* Estilo para el logo si usas una imagen */
-    max-height: 50px; /* Ajusta según el tamaño de tu logo */
+    max-height: 50px;
     width: auto;
-    display: block; /* Asegura que el logo se comporte como bloque */
+    display: block;
 }
 
-/* Estilos para la Navegación y Botones */
 .main-navigation {
     display: flex;
     align-items: center;
@@ -66,7 +63,7 @@ body {
     justify-content: center;
     position: relative;
     overflow: hidden;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transición general para color de fondo y texto */
 }
 
 .menu-button .button-text {
@@ -76,18 +73,17 @@ body {
 
 .menu-button .button-icon {
     display: inline-block;
-    line-height: 1; /* Ayuda a alinear mejor los iconos de texto */
+    line-height: 1;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* --- Botón "LET'S TALK" --- */
 .lets-talk-button {
-    background-color: #2b2e3a;
+    background-color: #2b2e3a; /* Estado inicial definido aquí */
     color: #ffffff;
 }
 
 .lets-talk-button .button-text {
-    margin-right: 8px; /* Espacio entre "LET'S TALK" y el punto */
+    margin-right: 8px;
 }
 
 .lets-talk-button .button-icon.dot {
@@ -97,67 +93,34 @@ body {
 
 .lets-talk-button .button-icon.arrow {
     opacity: 0;
-    position: absolute; /* Para que no ocupe espacio y podamos animar su entrada */
-    /* Se centrará por el flex del botón padre, ajustaremos con transform */
+    position: absolute;
     transform: translateX(10px);
 }
 
-/* Hover "LET'S TALK" */
-.lets-talk-button:hover {
-    background-color: #0016ec;
-}
-
-.lets-talk-button:hover .button-text {
-    transform: translateX(
-        -25px
-    ); /* Mueve el texto más a la izquierda para dar espacio a la flecha */
-    opacity: 0;
-}
-
-.lets-talk-button:hover .button-icon.dot {
-    transform: translateX(-20px);
-    opacity: 0;
-}
-
-.lets-talk-button:hover .button-icon.arrow {
-    opacity: 1;
-    transform: translateX(
-        0px
-    ); /* La flecha se mueve a la posición central del espacio del texto */
-    /* Si el texto se va, la flecha tomará su lugar. Ajustar X si el botón es muy ancho */
-}
-
-/* --- Botón "MENU" --- */
 .menu-toggle {
     background-color: #e4e6ef;
     color: #333333;
 }
 
-/* Orden y espaciado para "MENU" */
 .menu-toggle .button-text {
-    order: 1; /* Texto primero */
+    order: 1;
     margin-right: 0;
-    margin-left: 8px; /* Espacio entre los puntos y el texto */
+    margin-left: 8px;
 }
 
 .menu-toggle .button-icon.dots {
-    order: 0; /* Puntos primero (visualmente a la izquierda del texto) */
-    letter-spacing: 1px; /* Separa un poco los dos puntos */
-    transition: transform 0.3s ease, color 0.3s ease; /* Añadido color a la transición */
-    color: #333333; /* Color inicial de los puntos */
+    order: 0;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease, color 0.3s ease;
+    color: #333333;
 }
 
-/* Hover "MENU" */
 .menu-toggle:hover {
     background-color: #ffffff;
-    color: #2b2e3a; /* Color del texto cambia */
-}
-
-.menu-toggle:hover .button-text {
-    color: #2b2e3a; /* Asegura que el texto cambie de color */
+    color: #2b2e3a;
 }
 
 .menu-toggle:hover .button-icon.dots {
     transform: rotate(90deg);
-    color: #2b2e3a; /* Color de los puntos cambia */
+    color: #2b2e3a; /* Asegura que los puntos también cambien de color si es necesario */
 }
