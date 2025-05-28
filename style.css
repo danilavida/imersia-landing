@@ -91,12 +91,6 @@ body {
     transform: translateX(0);
 }
 
-.lets-talk-button .button-icon.arrow {
-    opacity: 0;
-    position: absolute;
-    transform: translateX(10px);
-}
-
 .menu-toggle {
     background-color: #e4e6ef;
     color: #333333;
@@ -123,4 +117,37 @@ body {
 .menu-toggle:hover .button-icon.dots {
     transform: rotate(90deg);
     color: #2b2e3a;
+}
+
+.lets-talk-button {
+    background-color: #2b2e3a;
+    color: #ffffff;
+    position: relative; /* Importante para posicionar la onda absolutamente dentro */
+    overflow: hidden; /* Para que la onda no se salga si es muy grande */
+}
+
+.lets-talk-button .button-ripple {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px; /* Tamaño inicial pequeño */
+    height: 20px; /* Tamaño inicial pequeño */
+    background-color: rgba(255, 255, 255, 0.3); /* Color de la onda, semi-transparente */
+    border-radius: 50%; /* Para que sea un círculo */
+    transform: translate(-50%, -50%) scale(0); /* Centrado y escalado a 0 (oculto) */
+    opacity: 1; /* Inicialmente visible si está escalada, pero la haremos opaca luego */
+    pointer-events: none; /* Para que no interfiera con el clic en el botón */
+}
+
+.lets-talk-button .button-text {
+    margin-right: 8px;
+    position: relative; /* Para asegurar que esté por encima de la onda si es necesario */
+    z-index: 2;
+}
+
+.lets-talk-button .button-icon.dot {
+    opacity: 1;
+    transform: translateX(0); /* Estado inicial si no se mueve con la onda */
+    position: relative; /* Para asegurar que esté por encima de la onda */
+    z-index: 2;
 }

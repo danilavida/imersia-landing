@@ -29,8 +29,9 @@
                 </div>
                 <nav id="site-navigation" class="main-navigation" role="navigation">
                     <button class="menu-button lets-talk-button">
+                        <span class="button-ripple"></span>
                         <span class="button-text">LET'S TALK</span>
-                        <span class="button-icon dot">*</span>
+                        <span class="button-icon dot">&bull;</span>
                     </button>
                     <button class="menu-button menu-toggle">
                         <span class="button-text">MENU</span>

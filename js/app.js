@@ -10,70 +10,38 @@ document.addEventListener('DOMContentLoaded', function (event) {
             if (letsTalkButton) {
                 const buttonText = letsTalkButton.querySelector('.button-text')
                 const iconDot = letsTalkButton.querySelector('.button-icon.dot')
+                const buttonRipple = letsTalkButton.querySelector('.button-ripple')
 
-                gsap.set(iconDot, { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1 })
-                gsap.set(buttonText, { x: 0, y: 0, scale: 1, opacity: 1 })
+                // Estado inicial
+                gsap.set(iconDot, { scale: 1, opacity: 1 })
+                gsap.set(buttonText, { scale: 1, opacity: 1 })
+                gsap.set(buttonRipple, { scale: 0, opacity: 0.5 }) // Onda invisible y semi-opaca al inicio
 
                 const tlLetsTalkEnter = gsap.timeline({
                     paused: true,
-                    defaults: { duration: 0.3 }
+                    defaults: { duration: 0.4, ease: 'power1.out' }
                 })
                 tlLetsTalkEnter
-                    .to(
-                        letsTalkButton,
-                        { backgroundColor: '#0016ec', scale: 1.05, ease: 'power1.out' },
+                    .to(letsTalkButton, { backgroundColor: '#0016ec', scale: 1.05 }, 0)
+                    .to(buttonText, { scale: 1.03 }, 0)
+                    // Animación del punto: un "latido"
+                    .to(iconDot, { scale: 1.3, yoyo: true, repeat: 1, duration: 0.2 }, 0)
+                    // Animación de la onda: expandir y desvanecer
+                    .fromTo(
+                        buttonRipple,
+                        { scale: 0, opacity: 0.7 }, // Estado inicial de la onda para la animación
+                        { scale: 8, opacity: 0, duration: 0.6, ease: 'power2.out' }, // Se expande y desaparece
                         0
-                    )
-                    .to(
-                        iconDot,
-                        {
-                            y: -8,
-                            scale: 1.5,
-                            rotation: -360,
-                            transformOrigin: 'center center',
-                            ease: 'power2.out'
-                        },
-                        0
-                    )
-                    .to(
-                        buttonText,
-                        {
-                            y: -2,
-                            scale: 1.03,
-                            ease: 'power1.out'
-                        },
-                        0
-                    )
+                    ) // Inicia al mismo tiempo que las otras animaciones
 
                 const tlLetsTalkLeave = gsap.timeline({
                     paused: true,
-                    defaults: { duration: 0.3 }
+                    defaults: { duration: 0.3, ease: 'power1.in' }
                 })
                 tlLetsTalkLeave
-                    .to(
-                        letsTalkButton,
-                        { backgroundColor: '#2b2e3a', scale: 1.0, ease: 'power1.in' },
-                        0
-                    )
-                    .to(
-                        iconDot,
-                        {
-                            y: 0,
-                            scale: 1,
-                            rotation: 0,
-                            ease: 'power2.in'
-                        },
-                        0
-                    )
-                    .to(
-                        buttonText,
-                        {
-                            y: 0,
-                            scale: 1,
-                            ease: 'power1.in'
-                        },
-                        0
-                    )
+                    .to(letsTalkButton, { backgroundColor: '#2b2e3a', scale: 1.0 }, 0)
+                    .to(buttonText, { scale: 1.0 }, 0)
+                    .to(iconDot, { scale: 1.0 }, 0) // El punto vuelve a su escala normal
 
                 letsTalkButton.addEventListener('mouseenter', () =>
                     tlLetsTalkEnter.restart()
