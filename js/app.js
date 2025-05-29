@@ -208,6 +208,84 @@ document.addEventListener('DOMContentLoaded', function (event) {
                         '-=0.5'
                     ) // Inicia 0.5s antes de que termine la animación anterior (superposición)
             }
+
+            const interactiveContainer = document.querySelector('.interactive-container')
+            const interactiveShape = document.querySelector('.interactive-shape')
+
+            if (interactiveContainer && interactiveShape) {
+                // Factores para la animación (puedes jugar con estos valores)
+                const parallaxFactor = 0.09 // Cuánto se moverá la forma (más pequeño = menos movimiento)
+                const rotationFactor = 0.11 // Cuánto rotará la forma
+
+                // Usamos gsap.quickTo para actualizaciones de movimiento del mouse fluidas y optimizadas
+                // Estas funciones se configuran una vez y luego se llaman con el nuevo valor.
+                const shapeX = gsap.quickTo(interactiveShape, 'x', {
+                    duration: 0.6,
+                    ease: 'power3.out'
+                })
+                const shapeY = gsap.quickTo(interactiveShape, 'y', {
+                    duration: 0.6,
+                    ease: 'power3.out'
+                })
+                const shapeRotX = gsap.quickTo(interactiveShape, 'rotationX', {
+                    duration: 0.6,
+                    ease: 'power3.out'
+                })
+                const shapeRotY = gsap.quickTo(interactiveShape, 'rotationY', {
+                    duration: 0.6,
+                    ease: 'power3.out'
+                })
+                // Podríamos añadir también rotationZ si quieres un giro plano
+                // const shapeRotZ = gsap.quickTo(interactiveShape, "rotationZ", { duration: 0.6, ease: "power3.out" });
+
+                interactiveContainer.addEventListener('mousemove', (event) => {
+                    const rect = interactiveContainer.getBoundingClientRect()
+
+                    // Coordenadas del mouse relativas al viewport
+                    const mouseX = event.clientX
+                    const mouseY = event.clientY
+
+                    // Centro del contenedor interactivo
+                    const containerCenterX = rect.left + rect.width / 2
+                    const containerCenterY = rect.top + rect.height / 2
+
+                    // Diferencia entre la posición del mouse y el centro del contenedor
+                    // Normalizamos un poco dividiendo por el ancho/alto para que el efecto no sea extremo
+                    const deltaX = (mouseX - containerCenterX) / (rect.width / 2) // Rango de -1 a 1 aprox.
+                    const deltaY = (mouseY - containerCenterY) / (rect.height / 2) // Rango de -1 a 1 aprox.
+
+                    // Aplicar el movimiento de parallax (dirección opuesta al mouse)
+                    // Multiplicamos por un factor para controlar la "fuerza" del movimiento
+                    shapeX(deltaX * -(rect.width * parallaxFactor)) // Mueve en X
+                    shapeY(deltaY * -(rect.height * parallaxFactor)) // Mueve en Y
+
+                    // Aplicar rotación basada en la posición del mouse
+                    // El mouse moviéndose horizontalmente (deltaX) rota en el eje Y
+                    // El mouse moviéndose verticalmente (deltaY) rota en el eje X
+                    shapeRotX(deltaY * -(20 * rotationFactor)) // Rota en X (ej. max 20 grados)
+                    shapeRotY(deltaX * (20 * rotationFactor)) // Rota en Y (ej. max 20 grados)
+                    // shapeRotZ(deltaX * (10 * rotationFactor)); // Ejemplo de rotación plana
+                })
+
+                interactiveContainer.addEventListener('mouseleave', () => {
+                    // Volver la forma a su posición y rotación original suavemente
+                    gsap.to(interactiveShape, {
+                        duration: 0.8,
+                        x: 0,
+                        y: 0,
+                        rotationX: 0,
+                        rotationY: 0,
+                        rotationZ: 0, // Asegúrate de resetear rotationZ si la usas
+                        ease: 'elastic.out(1, 0.75)' // Un ease elástico para un retorno agradable
+                    })
+                })
+
+                // Para que la rotación 3D se vea bien, el elemento padre (o la forma misma)
+                // podría necesitar 'transform-style: preserve-3d;' y el contenedor un 'perspective'.
+                // Añadamos esto con GSAP para asegurar que se aplique:
+                gsap.set(interactiveContainer, { perspective: 800 }) // Perspectiva en el contenedor
+                gsap.set(interactiveShape, { transformStyle: 'preserve-3d' }) // Para la forma
+            }
         },
 
         false
