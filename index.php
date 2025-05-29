@@ -32,11 +32,6 @@ get_header(); // Incluye header.php
         </div>
     </section>
 
-
-    <?php
-
-    ?>
-
 </main>
 <?php
 get_footer();
