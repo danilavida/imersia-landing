@@ -16,6 +16,12 @@ get_header(); // Incluye header.php
         </div>
     </section>
 
+    <section class="interactive-shape-section">
+        <div class="interactive-container">
+            <div class="interactive-shape"></div>
+        </div>
+    </section>
+
     <?php
     // Si necesitas mostrar contenido de una página específica de WordPress aquí en el futuro,
     // podrías hacerlo con una consulta personalizada o si esta es una plantilla de página,
