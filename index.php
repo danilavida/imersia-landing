@@ -16,11 +16,23 @@ get_header(); // Incluye header.php
         </div>
     </section>
 
-    <section class="interactive-shape-section">
-        <div class="interactive-container">
-            <div class="interactive-shape"></div>
+    <section class="page-scroll-prompt-section">
+        <div class="page-scroll-prompt-container">
+            <span class="plus-icon">+</span>
+            <span class="plus-icon inner-plus">+</span>
+            <span class="scroll-text-content">SCROLL TO EXPLORE</span>
+            <span class="plus-icon inner-plus">+</span>
+            <span class="plus-icon">+</span>
         </div>
     </section>
+
+    <section class="interactive-shape-section">
+        <div class="interactive-container">
+            <div class="interactive-shape">
+            </div>
+        </div>
+    </section>
+
 
     <?php
     // Si necesitas mostrar contenido de una página específica de WordPress aquí en el futuro,

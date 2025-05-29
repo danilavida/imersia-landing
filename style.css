@@ -158,13 +158,12 @@ body {
     /* Puede que necesites ajustar el tamaño o la visualización aquí si el filtro causa problemas de recorte */
 }
 
-/* ----- Estilos de la Sección Hero Text ----- */
 .hero-text-section {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 60px 20px; /* Espaciado arriba/abajo y a los lados */
+    padding: 60px 20px 20px 20px; /* MODIFICADO: Reducido el padding inferior */
     /* Puedes añadir un min-height si quieres que ocupe más pantalla
        min-height: calc(100vh - 100px); /* Ejemplo: altura de la ventana menos altura aprox del header */
 }
@@ -198,22 +197,22 @@ body {
     transform: translateY(-40px); /* Inicialmente 40px arriba */
 }
 
-/* ----- Estilos de la Sección de Forma Interactiva ----- */
 .interactive-shape-section {
-    padding: 40px 20px; /* Espaciado alrededor de la sección */
-    /* background-color: #f0f1fa; /* Opcional: si quieres un color de fondo para toda la sección */
+    padding: 0px 20px 40px 20px; /* MODIFICADO: Reducido el padding superior a 0 */
+    background-color: #f0f1fa;
 }
 
 .interactive-container {
-    max-width: 1100px; /* Ancho similar al de LUSION */
-    margin: 0 auto; /* Centrar el contenedor */
-    background-color: #1a1c24; /* Un color de fondo oscuro, ajústalo a tu gusto */
-    border-radius: 30px; /* Bordes bien redondeados */
-    padding: 60px; /* Espaciado interno generoso */
-    min-height: 500px; /* Una altura mínima para que tenga presencia */
-    position: relative; /* MUY IMPORTANTE para posicionar la forma interna */
-    overflow: hidden; /* Para que la forma no se salga si se mueve mucho */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    max-width: 1100px;
+    margin: 0 auto;
+    background-color: #1a1c24;
+    border-radius: 30px;
+    /* padding: 60px; */ /* Original */
+    padding: 60px 60px 80px 60px; /* MODIFICADO: Aumentar padding-bottom si es necesario o ajustar según el bottom de .scroll-guidance */
+    min-height: 500px;
+    position: relative; /* Importante - ya estaba definido */
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilo base para nuestra forma interactiva (la haremos más interesante después) */
@@ -227,4 +226,41 @@ body {
     left: 50%;
     transform: translate(-50%, -50%); /* Centrar la forma */
     /* Agregaremos más estilos y animaciones a esto */
+}
+
+/* ----- Estilos de la Sección "Scroll to Explore" (Debajo del contenedor interactivo) ----- */
+.page-scroll-prompt-section {
+    background-color: #f0f1fa; /* Mismo color que el body, o 'transparent' si prefieres heredar */ /* */
+    padding: 30px 20px; /* Espaciado vertical y horizontal para la sección */
+    text-align: center; /* Para centrar el .page-scroll-prompt-container si su max-width se activa */
+}
+
+.page-scroll-prompt-container {
+    display: flex;
+    justify-content: space-between; /* Distribuye los 5 elementos uniformemente */
+    align-items: center;
+    max-width: 1100px; /* Mismo max-width que .interactive-container para alineación visual */
+    margin: 0 auto; /* Centra el contenedor si la pantalla es más ancha que max-width */
+    padding: 0 20px; /* Un padding lateral para que los elementos no toquen los bordes en pantallas estrechas */
+    /* Ajusta este padding para que los '+' más externos se alineen como deseas respecto al contenedor de arriba */
+}
+
+.page-scroll-prompt-container .plus-icon {
+    font-size: 1.8em; /* Tamaño de los iconos '+' */
+    color: #777777; /* Un gris medio oscuro, visible sobre fondo claro */
+    font-weight: 200; /* Para un look más delgado */
+}
+
+/* Puedes añadir un estilo específico si necesitas más espacio alrededor de los plus internos */
+.page-scroll-prompt-container .inner-plus {
+    /* margin: 0 20px; */ /* Ejemplo si necesitas ajustar espaciado manualmente, pero space-between debería ser suficiente */
+}
+
+.page-scroll-prompt-container .scroll-text-content {
+    font-size: 0.75em; /* Tamaño del texto "SCROLL TO EXPLORE" */
+    color: #333333; /* Color de texto oscuro estándar, visible sobre fondo claro */
+    text-transform: uppercase;
+    letter-spacing: 0.15em; /* Espaciado entre letras */
+    font-weight: 600;
+    white-space: nowrap; /* Evita que el texto se divida en múltiples líneas */
 }
