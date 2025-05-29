@@ -12,10 +12,9 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 const iconDot = letsTalkButton.querySelector('.button-icon.dot')
                 const buttonRipple = letsTalkButton.querySelector('.button-ripple')
 
-                // Estado inicial
                 gsap.set(iconDot, { scale: 1, opacity: 1 })
                 gsap.set(buttonText, { scale: 1, opacity: 1 })
-                gsap.set(buttonRipple, { scale: 0, opacity: 0.5 }) // Onda invisible y semi-opaca al inicio
+                gsap.set(buttonRipple, { scale: 0, opacity: 0.5 })
 
                 const tlLetsTalkEnter = gsap.timeline({
                     paused: true,
@@ -24,15 +23,15 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 tlLetsTalkEnter
                     .to(letsTalkButton, { backgroundColor: '#0016ec', scale: 1.05 }, 0)
                     .to(buttonText, { scale: 1.03 }, 0)
-                    // Animación del punto: un "latido"
+
                     .to(iconDot, { scale: 1.3, yoyo: true, repeat: 1, duration: 0.2 }, 0)
-                    // Animación de la onda: expandir y desvanecer
+
                     .fromTo(
                         buttonRipple,
-                        { scale: 0, opacity: 0.7 }, // Estado inicial de la onda para la animación
-                        { scale: 8, opacity: 0, duration: 0.6, ease: 'power2.out' }, // Se expande y desaparece
+                        { scale: 0, opacity: 0.7 },
+                        { scale: 8, opacity: 0, duration: 0.6, ease: 'power2.out' },
                         0
-                    ) // Inicia al mismo tiempo que las otras animaciones
+                    )
 
                 const tlLetsTalkLeave = gsap.timeline({
                     paused: true,
@@ -41,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 tlLetsTalkLeave
                     .to(letsTalkButton, { backgroundColor: '#2b2e3a', scale: 1.0 }, 0)
                     .to(buttonText, { scale: 1.0 }, 0)
-                    .to(iconDot, { scale: 1.0 }, 0) // El punto vuelve a su escala normal
+                    .to(iconDot, { scale: 1.0 }, 0)
 
                 letsTalkButton.addEventListener('mouseenter', () =>
                     tlLetsTalkEnter.restart()
@@ -122,44 +121,36 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 menuButton.addEventListener('mouseleave', () => tlMenuLeave.restart())
             }
 
-            // ... (código existente para los botones) ...
-
             // --- Animación para el LOGO ---
-            const logo = document.querySelector('.custom-logo') // O el selector de tu logo
+            const logo = document.querySelector('.custom-logo')
 
             if (logo) {
-                // Seleccionamos los elementos del filtro SVG que queremos animar
-                // Es importante que el filtro SVG ya esté en el DOM para este momento.
                 const feTurbulence = document.querySelector('#liquidFilter feTurbulence')
                 const feDisplacementMap = document.querySelector(
                     '#liquidFilter feDisplacementMap'
                 )
 
                 if (feTurbulence && feDisplacementMap) {
-                    let hoverAnimation = null // Para controlar la animación de 'seed'
+                    let hoverAnimation = null
 
                     logo.addEventListener('mouseenter', () => {
-                        // Animación de la intensidad de la distorsión y la frecuencia base
                         gsap.to(feDisplacementMap, {
                             duration: 0.3,
-                            attr: { scale: 19 }, // Aumenta la distorsión
+                            attr: { scale: 19 },
                             ease: 'power2.out'
                         })
                         gsap.to(feTurbulence, {
                             duration: 0.3,
-                            attr: { baseFrequency: '0.03 0.07' }, // Cambia un poco las ondas
+                            attr: { baseFrequency: '0.03 0.07' },
                             ease: 'power2.out'
                         })
 
-                        // Iniciar animación continua del 'seed' para que el líquido "se mueva"
-                        // Usamos un objeto para animar el 'seed' porque GSAP anima números, no directamente el atributo si no es numérico.
-                        // Esto es un truco: animamos un objeto y en cada 'update' aplicamos el valor al atributo.
                         let turbulenceAttrs = {
                             seed: parseFloat(feTurbulence.getAttribute('seed')) || 0
                         }
                         hoverAnimation = gsap.to(turbulenceAttrs, {
-                            seed: turbulenceAttrs.seed + 7, // Incrementa la semilla
-                            duration: 1, // Duración para cambiar 5 unidades de seed
+                            seed: turbulenceAttrs.seed + 7,
+                            duration: 1,
                             ease: 'none',
                             repeat: -1,
                             onUpdate: function () {
@@ -172,23 +163,19 @@ document.addEventListener('DOMContentLoaded', function (event) {
                     })
 
                     logo.addEventListener('mouseleave', () => {
-                        // Volver a la normalidad
                         gsap.to(feDisplacementMap, {
                             duration: 0.9,
-                            attr: { scale: 0 }, // Sin distorsión
+                            attr: { scale: 0 },
                             ease: 'power2.in'
                         })
                         gsap.to(feTurbulence, {
                             duration: 0.5,
-                            attr: { baseFrequency: '0.04 0.08' }, // Frecuencia original
+                            attr: { baseFrequency: '0.04 0.08' },
                             ease: 'power2.in'
                         })
 
-                        // Detener animación del 'seed'
                         if (hoverAnimation) {
                             hoverAnimation.kill()
-                            // Opcional: resetear el seed a 0 si quieres que siempre empiece igual
-                            // feTurbulence.setAttribute('seed', '0');
                         }
                     })
                 } else {
@@ -196,6 +183,30 @@ document.addEventListener('DOMContentLoaded', function (event) {
                         'No se pudieron encontrar los elementos del filtro SVG (#liquidFilter feTurbulence/feDisplacementMap). Asegúrate de que el SVG del filtro esté en el DOM.'
                     )
                 }
+            }
+
+            // --- Animación para el Texto Hero ---
+            const heroTitle = document.querySelector('.hero-title')
+            const heroSubtitle = document.querySelector('.hero-subtitle')
+
+            if (heroTitle && heroSubtitle) {
+                const tlHeroText = gsap.timeline({
+                    defaults: { duration: 0.8, ease: 'power2.out' } // Duración y ease por defecto
+                })
+
+                tlHeroText
+                    .to(heroTitle, {
+                        opacity: 1,
+                        y: 0 // Mover a su posición final (desde translateY(-60px))
+                    })
+                    .to(
+                        heroSubtitle,
+                        {
+                            opacity: 1,
+                            y: 0 // Mover a su posición final (desde translateY(-40px))
+                        },
+                        '-=0.5'
+                    ) // Inicia 0.5s antes de que termine la animación anterior (superposición)
             }
         },
 
