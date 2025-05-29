@@ -122,40 +122,38 @@ body {
 .lets-talk-button {
     background-color: #2b2e3a;
     color: #ffffff;
-    position: relative; /* Importante para posicionar la onda absolutamente dentro */
-    overflow: hidden; /* Para que la onda no se salga si es muy grande */
+    position: relative;
+    overflow: hidden;
 }
 
 .lets-talk-button .button-ripple {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 20px; /* Tamaño inicial pequeño */
-    height: 20px; /* Tamaño inicial pequeño */
-    background-color: rgba(255, 255, 255, 0.3); /* Color de la onda, semi-transparente */
-    border-radius: 50%; /* Para que sea un círculo */
-    transform: translate(-50%, -50%) scale(0); /* Centrado y escalado a 0 (oculto) */
-    opacity: 1; /* Inicialmente visible si está escalada, pero la haremos opaca luego */
-    pointer-events: none; /* Para que no interfiera con el clic en el botón */
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+    pointer-events: none;
 }
 
 .lets-talk-button .button-text {
     margin-right: 8px;
-    position: relative; /* Para asegurar que esté por encima de la onda si es necesario */
+    position: relative;
     z-index: 2;
 }
 
 .lets-talk-button .button-icon.dot {
     opacity: 1;
-    transform: translateX(0); /* Estado inicial si no se mueve con la onda */
-    position: relative; /* Para asegurar que esté por encima de la onda */
+    transform: translateX(0);
+    position: relative;
     z-index: 2;
 }
 
 .custom-logo {
-    /* O el selector específico de tu imagen de logo */
     filter: url(#liquidFilter);
-    /* Puede que necesites ajustar el tamaño o la visualización aquí si el filtro causa problemas de recorte */
 }
 
 .hero-text-section {
@@ -163,44 +161,38 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 60px 20px 20px 20px; /* MODIFICADO: Reducido el padding inferior */
-    /* Puedes añadir un min-height si quieres que ocupe más pantalla
-       min-height: calc(100vh - 100px); /* Ejemplo: altura de la ventana menos altura aprox del header */
+    padding: 60px 20px 20px 20px;
 }
 
 .hero-text-container {
-    max-width: 800px; /* Ancho máximo del texto */
+    max-width: 800px;
 }
 
 .hero-title {
-    /* font-size: 3.5em; */ /* Original */
-    font-size: 4em; /* MODIFICADO: Más grande */
+    font-size: 4em;
     font-weight: bold;
     color: #2b2e3a;
     line-height: 1.2;
     margin-bottom: 0.5em;
-
     /* Estado inicial para la animación GSAP */
     opacity: 0;
     transform: translateY(-60px);
 }
 
 .hero-subtitle {
-    /* font-size: 1.2em; */ /* Original */
-    font-size: 1.4em; /* MODIFICADO: Más grande */
+    font-size: 1.4em;
     color: #555;
     line-height: 1.6;
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
-
     /* Estado inicial para la animación GSAP */
     opacity: 0;
     transform: translateY(-40px);
 }
 
 .interactive-shape-section {
-    padding: 0px 20px 40px 20px; /* MODIFICADO: Reducido el padding superior a 0 */
+    padding: 0px 20px 40px 20px;
     background-color: #f0f1fa;
 }
 
@@ -209,24 +201,12 @@ body {
     margin: 0 auto;
     background-color: #1a1c24;
     border-radius: 30px;
-    /* padding: 60px; */ /* Original */
-    padding: 60px 60px 80px 60px; /* MODIFICADO: Aumentar padding-bottom si es necesario o ajustar según el bottom de .scroll-guidance */
+    padding: 60px 60px 80px 60px;
     min-height: 500px;
-    position: relative; /* Importante - ya estaba definido */
+    position: relative;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
-
-/* .interactive-shape {
-    width: 150px;
-    height: 150px;
-    background: linear-gradient(135deg, #4e54c8, #8f94fb);
-    border-radius: 50% 50% 30% 30%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-} */
 
 .interactive-3d-canvas {
     display: block;
@@ -254,20 +234,13 @@ body {
 }
 
 .page-scroll-prompt-container .plus-icon {
-    /* font-size: 1.8em; */ /* Original */
-    font-size: 2.2em; /* MODIFICADO: Más grande */
+    font-size: 2.2em;
     color: #777777;
     font-weight: 200;
 }
 
-/* Puedes añadir un estilo específico si necesitas más espacio alrededor de los plus internos */
-.page-scroll-prompt-container .inner-plus {
-    /* margin: 0 20px; */ /* Ejemplo si necesitas ajustar espaciado manualmente, pero space-between debería ser suficiente */
-}
-
 .page-scroll-prompt-container .scroll-text-content {
-    /* font-size: 0.75em; */ /* Original */
-    font-size: 0.9em; /* MODIFICADO: Más grande */
+    font-size: 0.9em;
     color: #333333;
     text-transform: uppercase;
     letter-spacing: 0.15em;

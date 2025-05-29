@@ -20,11 +20,6 @@
                     } else {
                         echo '<p class="site-title"><a href="' . esc_url(home_url('/')) . '" rel="home">' . get_bloginfo('name') . '</a></p>';
                     }
-                    // Opcionalmente, puedes añadir la descripción del sitio si lo deseas
-                    // $description = get_bloginfo('description', 'display');
-                    // if ($description || is_customize_preview()) {
-                    //     echo '<p class="site-description">' . $description . '</p>';
-                    // }
                     ?>
                 </div>
                 <nav id="site-navigation" class="main-navigation" role="navigation">
