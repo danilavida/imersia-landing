@@ -1,7 +1,5 @@
 <?php
-/**
- * El archivo de plantilla principal.
- */
+
 
 get_header(); // Incluye header.php
 ?>
@@ -28,6 +26,7 @@ get_header(); // Incluye header.php
 
     <section class="interactive-shape-section">
         <div class="interactive-container">
+            <canvas id="three-canvas" class="interactive-3d-canvas"></canvas>
             <div class="interactive-shape">
             </div>
         </div>
@@ -35,12 +34,10 @@ get_header(); // Incluye header.php
 
 
     <?php
-    // Si necesitas mostrar contenido de una página específica de WordPress aquí en el futuro,
-    // podrías hacerlo con una consulta personalizada o si esta es una plantilla de página,
-    // el loop estándar podría ir aquí. Por ahora, lo mantenemos simple.
+
     ?>
 
 </main>
 <?php
-get_footer(); // Incluye footer.php
+get_footer();
 ?>
