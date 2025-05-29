@@ -1,5 +1,6 @@
 import * as THREE from 'three' //
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js' // <-- AÑADIR ESTA LÍNEA
 
 document.addEventListener('DOMContentLoaded', function (event) {
     console.log('DOM cargado - Listo para GSAP')
@@ -188,7 +189,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 }
             }
 
-            // --- Animación para el Texto Hero ---
             const heroTitle = document.querySelector('.hero-title')
             const heroSubtitle = document.querySelector('.hero-subtitle')
 
@@ -200,28 +200,25 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 tlHeroText
                     .to(heroTitle, {
                         opacity: 1,
-                        y: 0 // Mover a su posición final (desde translateY(-60px))
+                        y: 0
                     })
                     .to(
                         heroSubtitle,
                         {
                             opacity: 1,
-                            y: 0 // Mover a su posición final (desde translateY(-40px))
+                            y: 0
                         },
                         '-=0.5'
-                    ) // Inicia 0.5s antes de que termine la animación anterior (superposición)
+                    )
             }
 
             const interactiveContainer = document.querySelector('.interactive-container')
             const interactiveShape = document.querySelector('.interactive-shape')
 
             if (interactiveContainer && interactiveShape) {
-                // Factores para la animación (puedes jugar con estos valores)
-                const parallaxFactor = 0.09 // Cuánto se moverá la forma (más pequeño = menos movimiento)
-                const rotationFactor = 0.11 // Cuánto rotará la forma
+                const parallaxFactor = 1 // Cuánto se moverá la forma (más pequeño = menos movimiento)
+                const rotationFactor = 2 // Cuánto rotará la forma
 
-                // Usamos gsap.quickTo para actualizaciones de movimiento del mouse fluidas y optimizadas
-                // Estas funciones se configuran una vez y luego se llaman con el nuevo valor.
                 const shapeX = gsap.quickTo(interactiveShape, 'x', {
                     duration: 0.6,
                     ease: 'power3.out'
@@ -238,56 +235,40 @@ document.addEventListener('DOMContentLoaded', function (event) {
                     duration: 0.6,
                     ease: 'power3.out'
                 })
-                // Podríamos añadir también rotationZ si quieres un giro plano
-                // const shapeRotZ = gsap.quickTo(interactiveShape, "rotationZ", { duration: 0.6, ease: "power3.out" });
 
                 interactiveContainer.addEventListener('mousemove', (event) => {
                     const rect = interactiveContainer.getBoundingClientRect()
 
-                    // Coordenadas del mouse relativas al viewport
                     const mouseX = event.clientX
                     const mouseY = event.clientY
 
-                    // Centro del contenedor interactivo
                     const containerCenterX = rect.left + rect.width / 2
                     const containerCenterY = rect.top + rect.height / 2
 
-                    // Diferencia entre la posición del mouse y el centro del contenedor
-                    // Normalizamos un poco dividiendo por el ancho/alto para que el efecto no sea extremo
-                    const deltaX = (mouseX - containerCenterX) / (rect.width / 2) // Rango de -1 a 1 aprox.
-                    const deltaY = (mouseY - containerCenterY) / (rect.height / 2) // Rango de -1 a 1 aprox.
+                    const deltaX = (mouseX - containerCenterX) / (rect.width / 2)
+                    const deltaY = (mouseY - containerCenterY) / (rect.height / 2)
 
-                    // Aplicar el movimiento de parallax (dirección opuesta al mouse)
-                    // Multiplicamos por un factor para controlar la "fuerza" del movimiento
-                    shapeX(deltaX * -(rect.width * parallaxFactor)) // Mueve en X
-                    shapeY(deltaY * -(rect.height * parallaxFactor)) // Mueve en Y
+                    shapeX(deltaX * -(rect.width * parallaxFactor))
+                    shapeY(deltaY * -(rect.height * parallaxFactor))
 
-                    // Aplicar rotación basada en la posición del mouse
-                    // El mouse moviéndose horizontalmente (deltaX) rota en el eje Y
-                    // El mouse moviéndose verticalmente (deltaY) rota en el eje X
-                    shapeRotX(deltaY * -(20 * rotationFactor)) // Rota en X (ej. max 20 grados)
-                    shapeRotY(deltaX * (20 * rotationFactor)) // Rota en Y (ej. max 20 grados)
-                    // shapeRotZ(deltaX * (10 * rotationFactor)); // Ejemplo de rotación plana
+                    shapeRotX(deltaY * -(20 * rotationFactor))
+                    shapeRotY(deltaX * (20 * rotationFactor))
                 })
 
                 interactiveContainer.addEventListener('mouseleave', () => {
-                    // Volver la forma a su posición y rotación original suavemente
                     gsap.to(interactiveShape, {
                         duration: 0.8,
                         x: 0,
                         y: 0,
                         rotationX: 0,
                         rotationY: 0,
-                        rotationZ: 0, // Asegúrate de resetear rotationZ si la usas
-                        ease: 'elastic.out(1, 0.75)' // Un ease elástico para un retorno agradable
+                        rotationZ: 0,
+                        ease: 'elastic.out(1, 0.75)'
                     })
                 })
 
-                // Para que la rotación 3D se vea bien, el elemento padre (o la forma misma)
-                // podría necesitar 'transform-style: preserve-3d;' y el contenedor un 'perspective'.
-                // Añadamos esto con GSAP para asegurar que se aplique:
-                gsap.set(interactiveContainer, { perspective: 800 }) // Perspectiva en el contenedor
-                gsap.set(interactiveShape, { transformStyle: 'preserve-3d' }) // Para la forma
+                gsap.set(interactiveContainer, { perspective: 800 })
+                gsap.set(interactiveShape, { transformStyle: 'preserve-3d' })
             }
 
             // --- Animación para la sección "SCROLL TO EXPLORE" ---
@@ -334,6 +315,21 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 renderer.setSize(container.clientWidth, container.clientHeight)
                 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)) // Para pantallas de alta resolución
 
+                const controls = new OrbitControls(camera, renderer.domElement)
+                controls.enableDamping = true // Suaviza el movimiento (inercia)
+                controls.dampingFactor = 0.05 // Factor de suavizado
+                controls.screenSpacePanning = false // Controla cómo se hace el paneo
+                controls.minDistance = 2 // Distancia mínima de zoom
+                controls.maxDistance = 10 // Distancia máxima de zoom
+                // controls.autoRotate = true; // Descomenta para que rote automáticamente al inicio
+                // controls.autoRotateSpeed = 0.5; // Velocidad de autorotación
+
+                // Ajusta el "target" de los controles si tu modelo no está en el origen (0,0,0)
+                // o si quieres que rote alrededor de un punto específico del modelo.
+                // Por defecto, es THREE.Vector3(0,0,0).
+                // Ejemplo: Si tu modelo está centrado en Y=-1:
+                // controls.target.set(0, -1, 0);
+
                 // 4. Luces (muy importante para ver el modelo glb)
                 const ambientLight = new THREE.AmbientLight(0xffffff, 0.8) // Luz ambiental suave
                 scene.add(ambientLight)
@@ -371,10 +367,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 function animate() {
                     requestAnimationFrame(animate)
 
-                    // Aquí puedes añadir animaciones o interacciones con el modelo
-                    // if (model) {
-                    //     model.rotation.y += 0.005; // Ejemplo de rotación automática simple
-                    // }
+                    controls.update()
 
                     renderer.render(scene, camera)
                 }
@@ -414,57 +407,57 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 // Para simplificar, la pondremos aquí, pero idealmente se inicializa
                 // o se activa una vez 'model' está definido.
 
-                function setupModelInteraction(targetModel) {
-                    if (!interactiveContainer || !targetModel) return
+                // function setupModelInteraction(targetModel) {
+                //     if (!interactiveContainer || !targetModel) return
 
-                    const parallaxFactor = 0.05 // Puedes ajustar estos valores
-                    const rotationFactor = 0.3 // Puedes ajustar estos valores
+                //     const parallaxFactor = 0.05 // Puedes ajustar estos valores
+                //     const rotationFactor = 0.3 // Puedes ajustar estos valores
 
-                    // Usamos gsap.quickTo para actualizaciones de movimiento del mouse fluidas y optimizadas
-                    const modelRotX = gsap.quickTo(targetModel.rotation, 'x', {
-                        duration: 0.6,
-                        ease: 'power3.out'
-                    })
-                    const modelRotY = gsap.quickTo(targetModel.rotation, 'y', {
-                        duration: 0.6,
-                        ease: 'power3.out'
-                    })
-                    // Para movimiento de parallax (opcional, podría ser confuso con la rotación)
-                    // const modelPosX = gsap.quickTo(targetModel.position, 'x', { duration: 0.6, ease: 'power3.out' });
-                    // const modelPosY = gsap.quickTo(targetModel.position, 'y', { duration: 0.6, ease: 'power3.out' });
+                //     // Usamos gsap.quickTo para actualizaciones de movimiento del mouse fluidas y optimizadas
+                //     const modelRotX = gsap.quickTo(targetModel.rotation, 'x', {
+                //         duration: 0.6,
+                //         ease: 'power3.out'
+                //     })
+                //     const modelRotY = gsap.quickTo(targetModel.rotation, 'y', {
+                //         duration: 0.6,
+                //         ease: 'power3.out'
+                //     })
+                //     // Para movimiento de parallax (opcional, podría ser confuso con la rotación)
+                //     // const modelPosX = gsap.quickTo(targetModel.position, 'x', { duration: 0.6, ease: 'power3.out' });
+                //     // const modelPosY = gsap.quickTo(targetModel.position, 'y', { duration: 0.6, ease: 'power3.out' });
 
-                    interactiveContainer.addEventListener('mousemove', (event) => {
-                        const rect = interactiveContainer.getBoundingClientRect()
-                        const mouseX = event.clientX
-                        const mouseY = event.clientY
-                        const containerCenterX = rect.left + rect.width / 2
-                        const containerCenterY = rect.top + rect.height / 2
-                        const deltaX = (mouseX - containerCenterX) / (rect.width / 2)
-                        const deltaY = (mouseY - containerCenterY) / (rect.height / 2)
+                //     interactiveContainer.addEventListener('mousemove', (event) => {
+                //         const rect = interactiveContainer.getBoundingClientRect()
+                //         const mouseX = event.clientX
+                //         const mouseY = event.clientY
+                //         const containerCenterX = rect.left + rect.width / 2
+                //         const containerCenterY = rect.top + rect.height / 2
+                //         const deltaX = (mouseX - containerCenterX) / (rect.width / 2)
+                //         const deltaY = (mouseY - containerCenterY) / (rect.height / 2)
 
-                        // Aplicar rotación basada en la posición del mouse
-                        modelRotX(deltaY * -rotationFactor) // Rota en X basado en movimiento Y del mouse
-                        modelRotY(deltaX * rotationFactor) // Rota en Y basado en movimiento X del mouse
+                //         // Aplicar rotación basada en la posición del mouse
+                //         modelRotX(deltaY * -rotationFactor) // Rota en X basado en movimiento Y del mouse
+                //         modelRotY(deltaX * rotationFactor) // Rota en Y basado en movimiento X del mouse
 
-                        // Opcional: Parallax
-                        // modelPosX(deltaX * -(rect.width * parallaxFactor * 0.1)); // Movimiento más sutil para posición
-                        // modelPosY(deltaY * (rect.height * parallaxFactor * 0.1));
-                    })
+                //         // Opcional: Parallax
+                //         // modelPosX(deltaX * -(rect.width * parallaxFactor * 0.1)); // Movimiento más sutil para posición
+                //         // modelPosY(deltaY * (rect.height * parallaxFactor * 0.1));
+                //     })
 
-                    interactiveContainer.addEventListener('mouseleave', () => {
-                        gsap.to(targetModel.rotation, {
-                            duration: 0.8,
-                            x: 0,
-                            y: 0,
-                            ease: 'elastic.out(1, 0.75)'
-                        })
-                        // Opcional: Resetear posición si usaste parallax
-                        // gsap.to(targetModel.position, {
-                        //     duration: 0.8, x: 0, y: 0, // Asegúrate que la posición inicial sea (0,0) o la que desees
-                        //     ease: 'elastic.out(1, 0.75)'
-                        // });
-                    })
-                }
+                //     interactiveContainer.addEventListener('mouseleave', () => {
+                //         gsap.to(targetModel.rotation, {
+                //             duration: 0.8,
+                //             x: 0,
+                //             y: 0,
+                //             ease: 'elastic.out(1, 0.75)'
+                //         })
+                //         // Opcional: Resetear posición si usaste parallax
+                //         // gsap.to(targetModel.position, {
+                //         //     duration: 0.8, x: 0, y: 0, // Asegúrate que la posición inicial sea (0,0) o la que desees
+                //         //     ease: 'elastic.out(1, 0.75)'
+                //         // });
+                //     })
+                // }
 
                 // Modifica el callback de carga del modelo para llamar a setupModelInteraction
                 loader.load(
@@ -486,7 +479,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
                         scene.add(model)
                         console.log('Modelo 3D cargado correctamente.')
-                        setupModelInteraction(model) // <<---- Configurar interacción DESPUÉS de cargar el modelo
+                        // setupModelInteraction(model)
                     },
                     undefined,
                     function (error) {
