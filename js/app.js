@@ -286,6 +286,22 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 gsap.set(interactiveContainer, { perspective: 800 }) // Perspectiva en el contenedor
                 gsap.set(interactiveShape, { transformStyle: 'preserve-3d' }) // Para la forma
             }
+
+            // --- Animación para la sección "SCROLL TO EXPLORE" ---
+            const scrollPromptContainer = document.querySelector(
+                '.page-scroll-prompt-container'
+            )
+
+            if (scrollPromptContainer) {
+                // Animación sutil de "bobbing" (sube y baja)
+                gsap.to(scrollPromptContainer, {
+                    y: '-10px', // Mover 10px hacia arriba
+                    duration: 1.8, // Duración de un ciclo de la animación (subir y bajar)
+                    ease: 'sine.inOut', // Tipo de easing para un movimiento suave
+                    repeat: -1, // Repetir la animación indefinidamente
+                    yoyo: true // Hace que la animación vaya y vuelva (sube, luego baja)
+                })
+            }
         },
 
         false
